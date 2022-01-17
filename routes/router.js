@@ -54,7 +54,7 @@ app.post("/api/create", jsonParser, (req, res) => {
   })();
 });
 
-// read a product
+// Read a product
 app.get("/api/read/:item_id", (req, res) => {
   (async () => {
     try {
@@ -87,7 +87,7 @@ app.get("/api/read/:item_id", (req, res) => {
   })();
 });
 
-// read all products
+// Read all products
 app.get("/api/read", (req, res) => {
   (async () => {
     try {
@@ -117,7 +117,7 @@ app.get("/api/read", (req, res) => {
   })();
 });
 
-// update product
+// Update product
 app.put("/api/update/:item_id", jsonParser, (req, res) => {
   (async () => {
     try {
@@ -163,7 +163,7 @@ app.put("/api/update/:item_id", jsonParser, (req, res) => {
   })();
 });
 
-// delete product
+// Delete product
 app.delete("/api/delete/:item_id", jsonParser, (req, res) => {
   (async () => {
     try {
@@ -195,7 +195,7 @@ app.delete("/api/delete/:item_id", jsonParser, (req, res) => {
   })();
 });
 
-// export to csv
+// Export to csv
 app.get("/api/export", (req, res) => {
   (async () => {
     try {
@@ -233,7 +233,7 @@ app.get("/api/export", (req, res) => {
   })();
 });
 
-// export to csv by an array of ids
+// Export to csv by an array of ids
 app.get("/api/export/:item_ids", jsonParser, (req, res) => {
   (async () => {
     try {
