@@ -28,7 +28,7 @@ npm install
 npm run start
 ```
 - After that, the API will be available at the endpoint http://localhost:5001/. **The `Operations` section of this readme document explains the operations you can perform using the API.**
-- If you want a interactive front-end demo that consumes the API, please open another terminal and run the following commands from the root of the repository:
+- If you want a interactive front-end demo that consumes the API, please **open another terminal** and run the following commands from the root of this repository:
 ```
 cd client
 npm install
@@ -39,6 +39,10 @@ npm run start
 # Operations
 
 #### [POST] `/create`: Add a new item to the inventory
+Format: 
+```
+curl -X POST http://localhost:5001/api/create -H 'Content-Type: application/json' -d '{"id":"PRODUCT ID HERE","item":"PRODUCT NAME HERE", "price": "PRODUCT PRICE HERE", "quantity": "PRODUCT QUANTITY HERE"}'
+```
 Sample usage:
   ```
 curl -X POST http://localhost:5001/api/create -H 'Content-Type: application/json' -d '{"id":"2022101261951A","item":"Excalibur", "price": "23.40", "quantity": "66"}'
@@ -53,6 +57,10 @@ The id '2022101261951A' already exists in the database.
 ```
 ----------------------------
 #### [GET] `/read/:item_id`: Read a specific product by id
+Format
+  ```
+curl -X GET http://localhost:5001/api/read/{PRUDCT ID HERE}
+  ```
 Sample usage:
   ```
 curl -X GET http://localhost:5001/api/read/2022101261951A
@@ -85,6 +93,10 @@ Expected response if the inventory is empty (which returns an empty array):
 ```
 ----------------------------
 #### [PUT] `/update/:item_id`: Update the metadata of an item by id.
+Format:
+  ```
+curl -X PUT http://localhost:5001/api/update/{PRODUCT ID HERE} -H 'Content-Type: application/json' -d '{"item": "PRODUCT NAME HERE", "price": "PRODUCT PRICE HERE", "quantity": "PRODUCT QUANTITY HERE"}'
+  ```
 Sample usage:
   ```
 curl -X PUT http://localhost:5001/api/update/2022101261951A -H 'Content-Type: application/json' -d '{"item":"ExcaliburV2", "price": "99.99", "quantity": "99"}'
@@ -116,6 +128,10 @@ Expected response if item is successfully exported:
 
 ----------------------------
 #### [GET] `/api/export/:item_ids`: Export selected list of items (id separated using comma) as CSV.
+Format:
+  ```
+curl -X GET http://localhost:5001/api/export/PRODUCT_ID_1,PRODUCT_ID_2,...
+  ```
 Sample usage:
   ```
 curl -X GET http://localhost:5001/api/export/434,4321
@@ -127,3 +143,5 @@ Expected response if item is successfully exported:
 "434","ExcaliburV2","99.99","99"
 "4321","Toy","33.33","333"
   ```
+
+You can also open a browser and enter `http://localhost:5001/api/export/434,4321`, which will directly download a csv file accordingly.
