@@ -1,0 +1,55 @@
+<div class="jumbotron">
+  <h3 style="font-weight: bold; text-align: center; margin-top: 20px">Logistics Inventory Tracker (Shopify Backend Challenge 2022)</h3>
+</div>
+<hr class="rounded">
+<div class="container" style="margin-top: -50px">
+  <div class="row frontend-row">
+    <div class="col">
+      <form>
+        <div class="form-group example-list">
+          <div class="select-all">
+            <button class="btn btn-btn btn-primary" (click)="selectAll()">Load Current Items</button>
+            <button class="btn btn-btn btn-primary" (click)="createItem()">Create Item</button>
+            <button class="btn btn-btn btn-success" (click)="downloadCSV()">Export to CSV</button>
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col" class="id-column">ID</th>
+                <th scope="col">Item Name</th>
+                <th scope="col">Item Price</th>
+                <th scope="col">Item Quantity</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let item of exampleItems">
+              <tr>
+                <!--https://angular.io/guide/template-syntax#ngModel-->
+                <td>{{item.id}}</td>
+                <td><input placeholder="Item Name" [value]="item.item" (input)="item.item=$event.target.value"></td>
+                <td><input placeholder="Item Price" [value]="item.price" (input)="item.price=$event.target.value"></td>
+                <td><input placeholder="Item Quantity" [value]="item.quantity" (input)="item.quantity=$event.target.value"></td>
+                <td><button type="button" class="btn btn-warning" id="btn-warning" (click)="updateItem(item)">Update</button></td>
+                <td><button type="button" class="btn btn-danger" id="btn-danger" (click)="deleteItem(item)">Delete</button></td>
+                <td><button type="button" class="btn btn-success" id="btn-success" (click)="saveItem(item)" *ngIf="item.save !== undefined">Save This Item</button></td>
+              </tr>
+            </tbody>
+            <tbody *ngFor="let item of newItems">
+              <tr>
+                <!--https://angular.io/guide/template-syntax#ngModel-->
+                <td class="id-column"><input placeholder="ID" [value]="item.id" (input)="item.id=$event.target.value"></td>
+                <td><input placeholder="Item Name" [value]="item.item" (input)="item.item=$event.target.value"></td>
+                <td><input placeholder="Item Price" [value]="item.price" (input)="item.price=$event.target.value"></td>
+                <td><input placeholder="Item Quantity" [value]="item.quantity" (input)="item.quantity=$event.target.value"></td>
+                <td><button type="button" class="btn btn-success" id="btn-success" (click)="saveItem(item)" *ngIf="item.save !== undefined">Save This Item</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
