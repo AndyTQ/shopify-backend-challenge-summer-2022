@@ -221,7 +221,7 @@ app.get("/api/export/:item_ids", jsonParser, (req, res) => {
   (async () => {
     try {
       ids = new Set(req.params.item_ids.split(",")); // use set for faster time complexity
-      let err = ""
+      let err = "";
       for (let i = 0; i < ids.length; i++) {
         const currentErr = validateId(req.params.item_ids);
         if (currentErr != "") {

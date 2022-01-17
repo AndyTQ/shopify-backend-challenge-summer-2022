@@ -28,7 +28,7 @@ npm install
 npm run start
 ```
 - After that, the API will be available at the endpoint http://localhost:5001/. **The `Operations` section of this readme document explains the operations you can perform using the API.**
-- If you want a interactive front-end demo that consumes the API, please run the following commands from the root of the repository:
+- If you want a interactive front-end demo that consumes the API, please open another terminal and run the following commands from the root of the repository:
 ```
 cd client
 npm install
