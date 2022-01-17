@@ -75,7 +75,7 @@ Expected response if items are successfully read (200 OK):
 #### [GET] `/read/:item_id`: Read a specific product by id
 Format
   ```
-curl -X GET http://localhost:5001/api/read/{PRUDCT ID HERE}
+curl -X GET http://localhost:5001/api/read/{PRODUCT ID HERE}
   ```
 Sample usage:
   ```
