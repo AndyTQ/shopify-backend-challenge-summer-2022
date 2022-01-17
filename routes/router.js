@@ -12,11 +12,12 @@ const jsonParser = bodyParser.json();
 
 app.use(cors({origin: true}));
 
-// create product
+// Create a new product
 app.post("/api/create", jsonParser, (req, res) => {
   (async () => {
     try {
       res.set("Content-Type", "text/plain");
+      // Check whether the given id is valid.
       let err = validateId(req.body.id);
       if (err != "") return res.status(400).send(err);
 
@@ -28,12 +29,14 @@ app.post("/api/create", jsonParser, (req, res) => {
 
       const docRef = db.collection("items").doc("/" + req.body.id + "/");
       const doc = await docRef.get();
+
+      // Check whether the product exists in the inventory.
       if (doc.exists) {
         return res
             .status(400)
             .send(`The id '${req.body.id}' already exists in the database.`);
       }
-
+      // Check whether the given metadata is valid.
       err = validateValue(data);
       if (err != "") return res.status(400).send(err);
 
@@ -61,6 +64,8 @@ app.get("/api/read/:item_id", (req, res) => {
       }
       const docRef = db.collection("items").doc(req.params.item_id);
       const item = await docRef.get();
+
+      // Check whether the product exists in the inventory.
       if (!item.exists) {
         return res
             .set("Content-Type", "text/plain")
@@ -100,14 +105,6 @@ app.get("/api/read", (req, res) => {
           response.push(selectedItem);
         }
       });
-      if (response.length == 0){
-        response = {
-          id: "",
-          item: "",
-          price: "",
-          quantity: "",
-        }
-      }
       
       return res
           .set("Content-Type", "application/json")
@@ -124,6 +121,7 @@ app.get("/api/read", (req, res) => {
 app.put("/api/update/:item_id", jsonParser, (req, res) => {
   (async () => {
     try {
+      // Check whether the given id is valid.
       let err = validateId(req.params.item_id);
       if (err != "") {
         return res.set("Content-Type", "text/plain").status(400).send(err);
@@ -142,7 +140,7 @@ app.put("/api/update/:item_id", jsonParser, (req, res) => {
         price: req.body.price,
         quantity: req.body.quantity,
       };
-
+      // Check whether the given metadata is valid.
       err = validateValue(data);
       if (err != "") {
         return res.set("Content-Type", "text/plain").status(400).send(err);
@@ -169,6 +167,7 @@ app.put("/api/update/:item_id", jsonParser, (req, res) => {
 app.delete("/api/delete/:item_id", jsonParser, (req, res) => {
   (async () => {
     try {
+      // Check whether the given id is valid.
       const err = validateId(req.params.item_id);
       if (err != "") {
         return res.set("Content-Type", "text/plain").status(400).send(err);
@@ -214,16 +213,16 @@ app.get("/api/export", (req, res) => {
           response.push(selectedItem);
         }
       });
+      // Check whether the current inventory is empty.
+      // If so, return an empty csv.
+      let csv = "";
       if (response.length == 0){
-        response = {
-          id: "",
-          item: "",
-          price: "",
-          quantity: "",
-        }
+        csv = "id,item,price,quantity";
+      }
+      else{
+        csv = json2csv.parse(response);
       }
 
-      const csv = json2csv.parse(response);
       const todayDate = new Date().toISOString().slice(0, 10);
       res.attachment(`inventory-${todayDate}.csv`);
       return res.set("Content-Type", "text/csv").status(200).send(csv);
@@ -267,16 +266,16 @@ app.get("/api/export/:item_ids", jsonParser, (req, res) => {
           }
         }
       });
+      // Check whether the current inventory is empty.
+      // If so, return an empty csv.
+      let csv = "";
       if (response.length == 0){
-        response = {
-          id: "",
-          item: "",
-          price: "",
-          quantity: "",
-        }
+        csv = "id,item,price,quantity";
+      }
+      else{
+        csv = json2csv.parse(response);
       }
 
-      const csv = json2csv.parse(response);
       const todayDate = new Date().toISOString().slice(0, 10);
       res.attachment(`inventory-${todayDate}.csv`);
       return res.set("Content-Type", "text/csv").status(200).send(csv);
@@ -287,4 +286,4 @@ app.get("/api/export/:item_ids", jsonParser, (req, res) => {
   })();
 });
 
-app.listen(port, () => console.log(`Access to the server at http://localhost:${port}`))
+app.listen(port, () => console.log(`Access to the server at http://localhost:${port}`));
