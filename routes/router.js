@@ -100,6 +100,15 @@ app.get("/api/read", (req, res) => {
           response.push(selectedItem);
         }
       });
+      if (response.length == 0){
+        response = {
+          id: "",
+          item: "",
+          price: "",
+          quantity: "",
+        }
+      }
+      
       return res
           .set("Content-Type", "application/json")
           .status(200)
@@ -205,6 +214,15 @@ app.get("/api/export", (req, res) => {
           response.push(selectedItem);
         }
       });
+      if (response.length == 0){
+        response = {
+          id: "",
+          item: "",
+          price: "",
+          quantity: "",
+        }
+      }
+
       const csv = json2csv.parse(response);
       const todayDate = new Date().toISOString().slice(0, 10);
       res.attachment(`inventory-${todayDate}.csv`);
@@ -249,9 +267,15 @@ app.get("/api/export/:item_ids", jsonParser, (req, res) => {
           }
         }
       });
-      
-      console.log(ids);
-      console.log(response);
+      if (response.length == 0){
+        response = {
+          id: "",
+          item: "",
+          price: "",
+          quantity: "",
+        }
+      }
+
       const csv = json2csv.parse(response);
       const todayDate = new Date().toISOString().slice(0, 10);
       res.attachment(`inventory-${todayDate}.csv`);

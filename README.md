@@ -8,6 +8,11 @@ Technologies Used:
 - Git (Version Control)
 - AngularJS (for a simple interactive demo of the API)
 
+To run this application, make sure you have previously installed:
+- node.js
+- npm
+- git
+
 # Features
 
 - Create new item into the inventory
@@ -47,14 +52,25 @@ Sample usage:
   ```
 curl -X POST http://localhost:5001/api/create -H 'Content-Type: application/json' -d '{"id":"2022101261951A","item":"Excalibur", "price": "23.40", "quantity": "66"}'
   ```
-Expected response if item is successfully created:
+Expected response if item is successfully created (200 OK):
 ```
 Success! Excalibur with id 2022101261951A has been added.
 ```
-Expected response if item exists already:
+Expected response if item exists already (400 Bad Request):
 ```
 The id '2022101261951A' already exists in the database.
 ```
+----------------------------
+#### [GET] `/read`: Read ALL items in the inventory
+Sample usage:
+  ```
+curl -X GET http://localhost:5001/api/read
+  ```
+Expected response if items are successfully read (200 OK):
+```
+[{"id":"2022101261951A","item":"Excalibur","price":"23.40","quantity":"66"},{"id":"333213a","item":"fdsafds","price":"33.33","quantity":"333"},{"id":"4321","item":"43","price":"43","quantity":"43"},{"id":"432351","item":"Wine","price":"23.40","quantity":"33"},{"id":"434","item":"44","price":"44","quantity":"44"}]
+```
+
 ----------------------------
 #### [GET] `/read/:item_id`: Read a specific product by id
 Format
@@ -65,7 +81,7 @@ Sample usage:
   ```
 curl -X GET http://localhost:5001/api/read/2022101261951A
   ```
-Expected response if item is successfully read:
+Expected response if item is successfully read (200 OK):
 ```
 {
     "quantity": "66",
@@ -73,23 +89,9 @@ Expected response if item is successfully read:
     "item": "Excalibur"
 }
 ```
-Expected response if item does not exist:
+Expected response if item does not exist (400 Bad Request):
 ```
 Product with id '2022101261951A' does not exist.
-```
-----------------------------
-#### [GET] `/read`: Read ALL items in the inventory
-Sample usage:
-  ```
-curl -X GET http://localhost:5001/api/read
-  ```
-Expected response if items are successfully read:
-```
-[{"id":"2022101261951A","item":"Excalibur","price":"23.40","quantity":"66"},{"id":"333213a","item":"fdsafds","price":"33.33","quantity":"333"},{"id":"4321","item":"43","price":"43","quantity":"43"},{"id":"432351","item":"Wine","price":"23.40","quantity":"33"},{"id":"434","item":"44","price":"44","quantity":"44"}]
-```
-Expected response if the inventory is empty (which returns an empty array):
-```
-[]
 ```
 ----------------------------
 #### [PUT] `/update/:item_id`: Update the metadata of an item by id.
@@ -101,11 +103,11 @@ Sample usage:
   ```
 curl -X PUT http://localhost:5001/api/update/2022101261951A -H 'Content-Type: application/json' -d '{"item":"ExcaliburV2", "price": "99.99", "quantity": "99"}'
   ```
-Expected response if item is successfully updated.
+Expected response if item is successfully updated (200 OK):
 ```
 Product with id 2022101261951A has been updated. New product metadata: {"item":"ExcaliburV2","price":"99.99","quantity":"99"}
 ```
-Expected response if the item is not found.
+Expected response if the item is not found (400 Bad Request):
 ```
 The id '2022101261951A' does not exist in the database.
 ```
@@ -116,7 +118,7 @@ Sample usage:
 curl -X GET http://localhost:5001/api/export
   ```
 
-Expected response if item is successfully exported:
+Expected response if item is successfully exported (200 OK):
   ```
   "id","item","price","quantity"
 "2022101261951A","ExcaliburV2","99.99","99"
@@ -137,7 +139,7 @@ Sample usage:
 curl -X GET http://localhost:5001/api/export/434,4321
   ```
 
-Expected response if item is successfully exported:
+Expected response if item is successfully exported (200 OK):
   ```
   "id","item","price","quantity"
 "434","ExcaliburV2","99.99","99"
