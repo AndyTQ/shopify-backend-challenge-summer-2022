@@ -114,3 +114,16 @@ Expected response if item is successfully exported:
 "434253555","PS5 controller","66.59","44"
   ```
 
+----------------------------
+#### [GET] `/api/export/:item_ids`: Export selected list of items (id separated using comma) as CSV.
+Sample usage:
+  ```
+curl -X GET http://localhost:5001/api/export/434,4321
+  ```
+
+Expected response if item is successfully exported:
+  ```
+  "id","item","price","quantity"
+"434","ExcaliburV2","99.99","99"
+"4321","Toy","33.33","333"
+  ```

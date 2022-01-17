@@ -216,4 +216,51 @@ app.get("/api/export", (req, res) => {
   })();
 });
 
+// export to csv by an array of ids
+app.get("/api/export/:item_ids", jsonParser, (req, res) => {
+  (async () => {
+    try {
+      ids = new Set(req.params.item_ids.split(",")); // use set for faster time complexity
+      let err = ""
+      for (let i = 0; i < ids.length; i++) {
+        const currentErr = validateId(req.params.item_ids);
+        if (currentErr != "") {
+          currentErr = `Error at the ${i}th id: \n` + currentErr;
+        }
+        err += currentErr;
+      }
+      if (err != "") {
+        return res.set("Content-Type", "text/plain").status(400).send(err);
+      }
+
+      const query = db.collection("items");
+      const response = [];
+      await query.get().then((querySnapshot) => {
+        const docs = querySnapshot.docs;
+        for (const doc of docs) {
+          if (ids.has(doc.id)){
+            const selectedItem = {
+              id: doc.id,
+              item: doc.data().item,
+              price: doc.data().price,
+              quantity: doc.data().quantity,
+            };
+            response.push(selectedItem);
+          }
+        }
+      });
+      
+      console.log(ids);
+      console.log(response);
+      const csv = json2csv.parse(response);
+      const todayDate = new Date().toISOString().slice(0, 10);
+      res.attachment(`inventory-${todayDate}.csv`);
+      return res.set("Content-Type", "text/csv").status(200).send(csv);
+    } catch (error) {
+      console.log(error);
+      return res.set("Content-Type", "text/plain").status(500).send(error);
+    }
+  })();
+});
+
 app.listen(port, () => console.log(`Access to the server at http://localhost:${port}`))
