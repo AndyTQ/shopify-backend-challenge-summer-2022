@@ -133,11 +133,11 @@ If item is successfully read (200 OK):
 }
 ```
 #### Error Response:
-Invalid id (400 bad request):
+Invalid id (400 Bad Request):
 ```
 Item id should be alphanumeric.
 ```
-Item not found (404 not found):
+Item not found (404 Not Found):
 ```
 Product with id '2022101261951A' does not exist.
 ```
@@ -167,7 +167,7 @@ Expected response if item is successfully updated (200 OK):
 Product with id 2022101261951A has been updated. New product metadata: {"item":"ExcaliburV2","price":"99.99","quantity":"99"}
 ```
 #### Error Response:
-Invalid id (400 bad request):
+Invalid id (400 Bad Request):
 ```
 Item id should be alphanumeric.
 ```
@@ -193,7 +193,7 @@ Expected response if item is successfully updated (200 OK):
 Product with id 2022101261951A has been deleted.
 ```
 #### Error Response:
-Invalid id (400 bad request):
+Invalid id (400 Bad Request):
 ```
 Item id should be alphanumeric.
 ```
