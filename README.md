@@ -204,7 +204,7 @@ The id '2022101261951A' does not exist in the database.
 If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
 
 ----------------------------
-## [GET] `/api/export`: Export the current inventory as CSV.
+## [GET] `/api/export`: Export the current inventory to CSV.
 #### Sample Usage:
   ```
 curl -X GET http://localhost:5001/api/export
@@ -223,7 +223,7 @@ Note that if the inventory is empty, a csv will still be returned but it will on
 If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
 
 ----------------------------
-## [GET] `/api/export/:item_ids`: Export selected list of items (id separated using comma) as CSV.
+## [GET] `/api/export/:item_ids`: Export selected list of items (id separated using comma) to CSV.
 #### Curl Template:
   ```
 curl -X GET http://localhost:5001/api/export/PRODUCT_ID_1,PRODUCT_ID_2,...
