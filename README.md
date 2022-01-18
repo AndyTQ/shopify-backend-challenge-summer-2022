@@ -107,7 +107,7 @@ Items are successfully read (200 OK):
     },
     {
     "id": "2022101261951B",
-    "item": "Excalibur",
+    "item": "Excalibur V2",
     "price": 23.4,
     "quantity": 66
     },
@@ -228,7 +228,7 @@ curl -X GET http://localhost:5001/api/export
 If item is successfully exported (200 OK):
   ```
 "id","item","price","quantity"
-"2022101261951B","Excalibur",23.4,66
+"2022101261951B","Excalibur V2",23.4,66
 "2022101261951C","Excalibur V3",23.4,66
 "Shop2333","Water",1.52,100
   ```
@@ -249,7 +249,7 @@ curl -X GET http://localhost:5001/api/export/Shop2333,2022101261951B
 If item is successfully exported (200 OK):
   ```
 "id","item","price","quantity"
-"2022101261951B","Excalibur",23.4,66
+"2022101261951B","Excalibur V2",23.4,66
 "Shop2333","Water",1.52,100
   ```
 #### Error Response:
