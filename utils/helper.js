@@ -1,5 +1,11 @@
 // Utility helpers that can be used, such as validating value and validating id.
 
+// Convert price of item metadata to float and quantity of item metadata to int (in case user typed strings)
+const formatData = (data) => {
+  data.price = parseFloat(data.price);
+  data.quantity = parseInt(data.quantity);
+}
+
 // Validate the metadata (value) of an item.
 const validateValue = (data) => {
     let err = "";
@@ -45,3 +51,4 @@ const validateId = (id) => {
 
 module.exports.validateValue = validateValue;
 module.exports.validateId = validateId;
+module.exports.formatData = formatData;

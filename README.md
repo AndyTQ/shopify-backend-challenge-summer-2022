@@ -56,11 +56,11 @@ You can perform operations on the API via terminal using curl. By default, curl 
 ```
 #### Curl Template: 
 ```
-curl -X POST http://localhost:5001/api/create -H 'Content-Type: application/json' -d '{"id":"PRODUCT ID HERE","item":"PRODUCT NAME HERE", "price": "PRODUCT PRICE HERE", "quantity": "PRODUCT QUANTITY HERE"}'
+curl -X POST http://localhost:5001/api/create -H 'Content-Type: application/json' -d '{"id":"PRODUCT ID HERE","item":"PRODUCT NAME HERE", "price": PRODUCT PRICE HERE, "quantity": PRODUCT QUANTITY HERE}'
 ```
 #### Sample Usage:
 ```
-curl -X POST http://localhost:5001/api/create -H 'Content-Type: application/json' -d '{"id":"2022101261951A","item":"Excalibur", "price": "23.40", "quantity": "66"}'
+curl -X POST http://localhost:5001/api/create -H 'Content-Type: application/json' -d '{"id":"2022101261951A","item":"Excalibur", "price": 23.40, "quantity": 66}'
 ```
 
 #### Correct Response:
@@ -101,13 +101,13 @@ Items are successfully read (200 OK):
 [{
     "id": "2022101261951A",
     "item": "Excalibur",
-    "price": "23.40",
-    "quantity": "66"
+    "price": 23.40,
+    "quantity": 66
 }, {
     "id": "2022101261951A2",
     "item": "Excalibur V2",
-    "price": "23.40",
-    "quantity": "66"
+    "price": 23.40,
+    "quantity": 66
 }]
 ```
 Note that if inventory is empty, an empty array will be returned.
@@ -127,9 +127,9 @@ curl -X GET http://localhost:5001/api/read/2022101261951A
 If item is successfully read (200 OK):
 ```
 {
-    "quantity": "66",
-    "price": "23.40",
-    "item": "Excalibur"
+    "item": "Excalibur",
+    "quantity": 66,
+    "price": 23.40
 }
 ```
 #### Error Response:
@@ -155,11 +155,11 @@ If there is an error caused due to the backend, HTTP 500 (Internal Server Error)
 ```
 #### Curl Template:
   ```
-curl -X PUT http://localhost:5001/api/update/{PRODUCT ID HERE} -H 'Content-Type: application/json' -d '{"item": "PRODUCT NAME HERE", "price": "PRODUCT PRICE HERE", "quantity": "PRODUCT QUANTITY HERE"}'
+curl -X PUT http://localhost:5001/api/update/{PRODUCT ID HERE} -H 'Content-Type: application/json' -d '{"item": "PRODUCT NAME HERE", "price": PRODUCT PRICE HERE, "quantity": PRODUCT QUANTITY HERE}'
   ```
 #### Sample Usage:
   ```
-curl -X PUT http://localhost:5001/api/update/2022101261951A -H 'Content-Type: application/json' -d '{"item":"ExcaliburV2", "price": "99.99", "quantity": "99"}'
+curl -X PUT http://localhost:5001/api/update/2022101261951A -H 'Content-Type: application/json' -d '{"item":"ExcaliburV2", "price": 99.99, "quantity": 99}'
   ```
 #### Correct Response:
 Expected response if item is successfully updated (200 OK):
@@ -213,11 +213,11 @@ curl -X GET http://localhost:5001/api/export
 If item is successfully exported (200 OK):
   ```
   "id","item","price","quantity"
-"2022101261951A","ExcaliburV2","99.99","99"
-"1235124","Toy","33.33","333"
-"1235125","Oculus controller","43","43"
-"4323431","HTC controller","23.40","33"
-"434253555","PS5 controller","66.59","44"
+"2022101261951A","ExcaliburV2",99.99,99
+"1235124","Toy",33.33,333
+"1235125","Oculus controller",43,43
+"4323431","HTC controller",23.40,33
+"434253555","PS5 controller",66.59,44
   ```
 Note that if the inventory is empty, a csv will still be returned but it will only have the titles (id, item, price, quantity.)
 If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
@@ -236,8 +236,8 @@ curl -X GET http://localhost:5001/api/export/434,4321
 If item is successfully exported (200 OK):
   ```
   "id","item","price","quantity"
-"434","ExcaliburV2","99.99","99"
-"4321","Toy","33.33","333"
+"434","ExcaliburV2",99.99,99
+"4321","Toy",33.33,333
   ```
 #### Error Response:
 Invalid id(s) (400 Bad Request):

@@ -8,6 +8,7 @@ const port = 5001;
 const db = require("../utils/db").db;
 const validateId = require("../utils/helper").validateId;
 const validateValue = require("../utils/helper").validateValue;
+const formatData = require("../utils/helper").formatData;
 const jsonParser = bodyParser.json();
 
 app.use(cors({origin: true}));
@@ -39,6 +40,7 @@ app.post("/api/create", jsonParser, (req, res) => {
       // Check whether the given metadata is valid.
       err = validateValue(data);
       if (err != "") return res.status(400).send(err);
+      formatData(data);
 
       await docRef.create(data);
       return res
@@ -145,7 +147,9 @@ app.put("/api/update/:item_id", jsonParser, (req, res) => {
       if (err != "") {
         return res.set("Content-Type", "text/plain").status(400).send(err);
       }
+      formatData(data);
       await docRef.update(data);
+      
       return res
           .set("Content-Type", "text/plain")
           .status(200)
