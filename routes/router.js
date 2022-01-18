@@ -69,7 +69,7 @@ app.get("/api/read/:item_id", (req, res) => {
       if (!item.exists) {
         return res
             .set("Content-Type", "text/plain")
-            .status(400)
+            .status(404)
             .send(
                 `Product with id '${req.params.item_id}' does not exist.`
             );
@@ -131,8 +131,8 @@ app.put("/api/update/:item_id", jsonParser, (req, res) => {
       if (!doc.exists) {
         return res
             .set("Content-Type", "text/plain")
-            .status(400)
-            .send(`The id '${req.body.id}' does not exist in the database.`);
+            .status(404)
+            .send(`The id '${req.body.id}' does not exist.`);
       }
 
       const data = {
@@ -177,8 +177,8 @@ app.delete("/api/delete/:item_id", jsonParser, (req, res) => {
       if (!doc.exists) {
         return res
             .set("Content-Type", "text/plain")
-            .status(400)
-            .send(`The id '${req.body.id}' does not exist in the database.`);
+            .status(404)
+            .send(`The id '${req.body.id}' does not exist.`);
       }
 
       await docRef.delete();

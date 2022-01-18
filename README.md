@@ -40,48 +40,90 @@ npm install
 npm run start
 ```
 - This will create a simple interactive demo at http://localhost:4200/. Using the demo, you can click buttons to view all the items, create/update/remove items, or export to CSV. This demo essentially calls the backend API at http://localhost:5001/ when you click the buttons.
+- If you want to access the API using the terminal instead, please read through the next section (Operations).
 
 # Operations
-
-#### [POST] `/create`: Add a new item to the inventory
-Format: 
+You can perform operations on the API via terminal using curl. By default, curl is installed in all recent operating systems. If you are running an older version of Windows (before Windows 10 1803), you might need to install Git Bash and run the curl command via Git Bash.
+## [POST] `/create`: Add a new item to the inventory
+#### Schema
+```
+{
+  "id": string (alphanumeric),
+  "item": string,
+  "price": float (decimals <= 2),
+  "quantity": integer
+}
+```
+#### Curl Template: 
 ```
 curl -X POST http://localhost:5001/api/create -H 'Content-Type: application/json' -d '{"id":"PRODUCT ID HERE","item":"PRODUCT NAME HERE", "price": "PRODUCT PRICE HERE", "quantity": "PRODUCT QUANTITY HERE"}'
 ```
-Sample usage:
-  ```
+#### Sample Usage:
+```
 curl -X POST http://localhost:5001/api/create -H 'Content-Type: application/json' -d '{"id":"2022101261951A","item":"Excalibur", "price": "23.40", "quantity": "66"}'
-  ```
-Expected response if item is successfully created (200 OK):
+```
+
+#### Correct Response:
+Item is successfully created (200 OK):
 ```
 Success! Excalibur with id 2022101261951A has been added.
 ```
-Expected response if item exists already (400 Bad Request):
+#### Error Response:
+Item exists already (400 Bad Request):
 ```
 The id '2022101261951A' already exists in the database.
 ```
+
+The user submitted an invalid id (400 Bad Request):
+```
+Item id cannot be empty.
+Item id should be alphanumeric.
+```
+
+The user submitted an invalid name/price/quantity (400 Bad Request):
+```
+Item name cannot be empty.
+Invalid price (need decimal number (<=2 decimals) or integer.)
+Quantity is not valid (needs to be an integer.)
+```
+Note that the example above shows the case where name, price, and quantity are all invalid. It will show them partially if only some values are invalid.
+If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
+
 ----------------------------
-#### [GET] `/read`: Read ALL items in the inventory
-Sample usage:
+## [GET] `/read`: Read ALL items in the inventory
+#### Sample Usage:
   ```
 curl -X GET http://localhost:5001/api/read
   ```
-Expected response if items are successfully read (200 OK):
+#### Correct Response:
+Items are successfully read (200 OK):
 ```
-[{"id":"2022101261951A","item":"Excalibur","price":"23.40","quantity":"66"},{"id":"333213a","item":"fdsafds","price":"33.33","quantity":"333"},{"id":"4321","item":"43","price":"43","quantity":"43"},{"id":"432351","item":"Wine","price":"23.40","quantity":"33"},{"id":"434","item":"44","price":"44","quantity":"44"}]
+[{
+    "id": "2022101261951A",
+    "item": "Excalibur",
+    "price": "23.40",
+    "quantity": "66"
+}, {
+    "id": "2022101261951A2",
+    "item": "Excalibur V2",
+    "price": "23.40",
+    "quantity": "66"
+}]
 ```
-
+Note that if inventory is empty, an empty array will be returned.
+If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
 ----------------------------
-#### [GET] `/read/:item_id`: Read a specific product by id
-Format
+## [GET] `/read/:item_id`: Read a specific product by id
+#### Curl Template
   ```
 curl -X GET http://localhost:5001/api/read/{PRODUCT ID HERE}
   ```
-Sample usage:
+#### Sample Usage:
   ```
 curl -X GET http://localhost:5001/api/read/2022101261951A
   ```
-Expected response if item is successfully read (200 OK):
+#### Correct Response:
+If item is successfully read (200 OK):
 ```
 {
     "quantity": "66",
@@ -89,36 +131,82 @@ Expected response if item is successfully read (200 OK):
     "item": "Excalibur"
 }
 ```
-Expected response if item does not exist (400 Bad Request):
+#### Error Response:
+Invalid id (400 bad request):
+```
+Item id should be alphanumeric.
+```
+Item not found (404 not found):
 ```
 Product with id '2022101261951A' does not exist.
 ```
+If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
 ----------------------------
-#### [PUT] `/update/:item_id`: Update the metadata of an item by id.
-Format:
+## [PUT] `/update/:item_id`: Update the metadata of an item by id.
+#### Schema
+```
+{
+  "item": string,
+  "price": float (decimals <= 2),
+  "quantity": integer
+}
+```
+#### Curl Template:
   ```
 curl -X PUT http://localhost:5001/api/update/{PRODUCT ID HERE} -H 'Content-Type: application/json' -d '{"item": "PRODUCT NAME HERE", "price": "PRODUCT PRICE HERE", "quantity": "PRODUCT QUANTITY HERE"}'
   ```
-Sample usage:
+#### Sample Usage:
   ```
 curl -X PUT http://localhost:5001/api/update/2022101261951A -H 'Content-Type: application/json' -d '{"item":"ExcaliburV2", "price": "99.99", "quantity": "99"}'
   ```
+#### Correct Response:
 Expected response if item is successfully updated (200 OK):
 ```
 Product with id 2022101261951A has been updated. New product metadata: {"item":"ExcaliburV2","price":"99.99","quantity":"99"}
 ```
-Expected response if the item is not found (400 Bad Request):
+#### Error Response:
+Invalid id (400 bad request):
+```
+Item id should be alphanumeric.
+```
+Item not found (404 Not Found):
 ```
 The id '2022101261951A' does not exist in the database.
 ```
+If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
 ----------------------------
-#### [GET] `/api/export`: Export the current inventory as CSV.
-Sample usage:
+## [DELETE] `/delete/:item_id`: Delete an item by id.
+#### Curl Template:
+  ```
+curl -X DELETE http://localhost:5001/api/delete/{PRODUCT ID HERE}
+  ```
+#### Sample Usage:
+  ```
+curl -X PUT http://localhost:5001/api/delete/2022101261951A
+  ```
+#### Correct Response:
+Expected response if item is successfully updated (200 OK):
+```
+Product with id 2022101261951A has been deleted.
+```
+#### Error Response:
+Invalid id (400 bad request):
+```
+Item id should be alphanumeric.
+```
+Item not found (404 Not Found):
+```
+The id '2022101261951A' does not exist in the database.
+```
+If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
+----------------------------
+## [GET] `/api/export`: Export the current inventory as CSV.
+#### Sample Usage:
   ```
 curl -X GET http://localhost:5001/api/export
   ```
-
-Expected response if item is successfully exported (200 OK):
+#### Correct Response:
+If item is successfully exported (200 OK):
   ```
   "id","item","price","quantity"
 "2022101261951A","ExcaliburV2","99.99","99"
@@ -127,23 +215,24 @@ Expected response if item is successfully exported (200 OK):
 "4323431","HTC controller","23.40","33"
 "434253555","PS5 controller","66.59","44"
   ```
-
+Note that if the inventory is empty, a csv will still be returned but it will only have the titles (id, item, price, quantity.)
+If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
 ----------------------------
-#### [GET] `/api/export/:item_ids`: Export selected list of items (id separated using comma) as CSV.
-Format:
+## [GET] `/api/export/:item_ids`: Export selected list of items (id separated using comma) as CSV.
+#### Curl Template:
   ```
 curl -X GET http://localhost:5001/api/export/PRODUCT_ID_1,PRODUCT_ID_2,...
   ```
-Sample usage:
+#### Sample Usage:
   ```
 curl -X GET http://localhost:5001/api/export/434,4321
   ```
-
-Expected response if item is successfully exported (200 OK):
+#### Correct Response:
+If item is successfully exported (200 OK):
   ```
   "id","item","price","quantity"
 "434","ExcaliburV2","99.99","99"
 "4321","Toy","33.33","333"
   ```
-
 You can also open a browser and enter `http://localhost:5001/api/export/434,4321`, which will directly download a csv file accordingly.
+If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.

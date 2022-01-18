@@ -1,3 +1,6 @@
+// Utility helpers that can be used, such as validating value and validating id.
+
+// Validate the metadata (value) of an item.
 const validateValue = (data) => {
     let err = "";
     const countDecimals = (num) => {
@@ -29,6 +32,7 @@ const validateValue = (data) => {
     return err;
 };
 
+// Validate whether the id has the correct format.
 const validateId = (id) => {
     let err = "";
     if (id === undefined || id == "") {
