@@ -174,12 +174,12 @@ curl -X PUT http://localhost:5001/api/update/{PRODUCT ID HERE} -H 'Content-Type:
   ```
 #### Sample Usage:
   ```
-curl -X PUT http://localhost:5001/api/update/2022101261951A -H 'Content-Type: application/json' -d '{"item":"ExcaliburV2", "price": 99.99, "quantity": 99}'
+curl -X PUT http://localhost:5001/api/update/2022101261951A -H 'Content-Type: application/json' -d '{"item":"Sword", "price": 99.99, "quantity": 99}'
   ```
 #### Correct Response:
 Expected response if item is successfully updated (200 OK):
 ```
-Product with id 2022101261951A has been updated. New product metadata: {"item":"ExcaliburV2","price":"99.99","quantity":"99"}
+Product with id 2022101261951A has been updated. New product metadata: {"item":"Sword","price":"99.99","quantity":"99"}
 ```
 #### Error Response:
 Invalid id (400 Bad Request):
