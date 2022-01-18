@@ -3,10 +3,10 @@
 This is the submission for the Shopify Backend Challenge of Summer 2022 internship. The challenge description is available [here](https://docs.google.com/document/d/1z9LZ_kZBUbg-O2MhZVVSqTmvDko5IJWHtuFmIu_Xg1A/edit).
 
 Technologies Used:
-- Node.js & ExpressJS (Backend Infrastructure)
-- Firebase Cloud FireStore (Database)
-- Git (Version Control)
-- AngularJS (for a simple interactive demo of the API)
+- Node.js & ExpressJS (Used as the backend infrastructure)
+- Firebase Cloud FireStore (Used as the database)
+- Git (Used for version control)
+- AngularJS (Used for a simple interactive demo of the API)
 
 To run this application, make sure you have previously installed:
 - node.js
