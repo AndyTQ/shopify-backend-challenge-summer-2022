@@ -32,7 +32,7 @@ To run this application, make sure you have previously installed:
 npm install
 npm run start
 ```
-- After that, the API will be available at the endpoint http://localhost:5001/. **The `Operations` section of this readme document explains the operations you can perform using the API. The most important file is routes/router.js, which describes the routes for all the required functionalities.**
+- After that, the API will be available at the endpoint http://localhost:5001/. **The `Operations` section of this readme document explains the operations you can perform using the API. The most important files for the backend are routes/router.js, utils/helper.js and utils/db.js.**
 - If you want a interactive front-end demo that consumes the API, please **open another terminal** and run the following commands from the root of this repository:
 ```
 cd client
