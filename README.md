@@ -233,6 +233,7 @@ If item is successfully exported (200 OK):
 "Shop2333","Water",1.52,100
   ```
 Note that if the inventory is empty, a csv will still be returned but it will only have the titles (id, item, price, quantity.)
+You can also open a modern browser and enter `http://localhost:5001/api/export`, which will directly download a csv file automatically.
 If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
 
 ----------------------------
@@ -266,7 +267,7 @@ The following ids are not found in the database:
 111111
 222222
 ```
-You can also open a browser and enter `http://localhost:5001/api/export/434,4321`, which will directly download a csv file accordingly.
+
 If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
 
 # Future Works 
