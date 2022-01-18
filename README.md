@@ -250,7 +250,8 @@ You can also open a browser and enter `http://localhost:5001/api/export/434,4321
 If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
 
 # Future Works 
+A number of features and development practices can be introduced in the future:
 - Use docker to separate the environment of this software from infrastructure, which can improve the efficiency in deliverying this software.
 - Use swagger to provide a better and more beautifully formatted API documentation.
 - Allow adding/deleting/reading/updating multiple items at once.
-- Add automated testings and CI/CD pipeline for this project.
+- Add unit tests and CI/CD pipeline for this project.
