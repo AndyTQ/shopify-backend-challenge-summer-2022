@@ -36,9 +36,9 @@ const validateValue = (data) => {
 const validateId = (id) => {
     let err = "";
     if (id === undefined || id == "") {
-        err += "Item id cannot be empty.";
+        err += "Item id cannot be empty.\n";
     } else if (!/^[a-z0-9]+$/i.test(id)) {
-        err += "Item id should be alphanumeric.";
+        err += "Item id should be alphanumeric.\n";
     }
     return err;
 };
