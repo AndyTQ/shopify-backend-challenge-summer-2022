@@ -56,11 +56,11 @@ You can perform operations on the API via terminal using curl. By default, curl 
 ```
 #### Curl Template: 
 ```
-curl -s -X POST http://localhost:5001/api/create -H 'Content-Type: application/json' -d '{"id":"PRODUCT ID HERE","item":"PRODUCT NAME HERE", "price": PRODUCT PRICE HERE, "quantity": PRODUCT QUANTITY HERE}'
+curl -X POST http://localhost:5001/api/create -H 'Content-Type: application/json' -d '{"id":"PRODUCT ID HERE","item":"PRODUCT NAME HERE", "price": PRODUCT PRICE HERE, "quantity": PRODUCT QUANTITY HERE}'
 ```
 #### Sample Usage:
 ```
-curl -s -X POST http://localhost:5001/api/create -H 'Content-Type: application/json' -d '{"id":"2022101261951A","item":"Excalibur", "price": 23.40, "quantity": 66}'
+curl -X POST http://localhost:5001/api/create -H 'Content-Type: application/json' -d '{"id":"2022101261951A","item":"Excalibur", "price": 23.40, "quantity": 66}'
 ```
 
 #### Correct Response:
@@ -93,7 +93,7 @@ If there is an error caused due to the backend, HTTP 500 (Internal Server Error)
 ## [GET] `/read`: Read ALL items in the inventory
 #### Sample Usage:
   ```
-curl -s -X GET http://localhost:5001/api/read
+curl -X GET http://localhost:5001/api/read
   ```
 #### Correct Response:
 Items are successfully read (200 OK):
@@ -117,11 +117,11 @@ If there is an error caused due to the backend, HTTP 500 (Internal Server Error)
 ## [GET] `/read/:item_id`: Read a specific product by id
 #### Curl Template
   ```
-curl -s -X GET http://localhost:5001/api/read/{PRODUCT ID HERE}
+curl -X GET http://localhost:5001/api/read/{PRODUCT ID HERE}
   ```
 #### Sample Usage:
   ```
-curl -s -X GET http://localhost:5001/api/read/2022101261951A
+curl -X GET http://localhost:5001/api/read/2022101261951A
   ```
 #### Correct Response:
 If item is successfully read (200 OK):
@@ -155,11 +155,11 @@ If there is an error caused due to the backend, HTTP 500 (Internal Server Error)
 ```
 #### Curl Template:
   ```
-curl -s -X PUT http://localhost:5001/api/update/{PRODUCT ID HERE} -H 'Content-Type: application/json' -d '{"item": "PRODUCT NAME HERE", "price": PRODUCT PRICE HERE, "quantity": PRODUCT QUANTITY HERE}'
+curl -X PUT http://localhost:5001/api/update/{PRODUCT ID HERE} -H 'Content-Type: application/json' -d '{"item": "PRODUCT NAME HERE", "price": PRODUCT PRICE HERE, "quantity": PRODUCT QUANTITY HERE}'
   ```
 #### Sample Usage:
   ```
-curl -s -X PUT http://localhost:5001/api/update/2022101261951A -H 'Content-Type: application/json' -d '{"item":"ExcaliburV2", "price": 99.99, "quantity": 99}'
+curl -X PUT http://localhost:5001/api/update/2022101261951A -H 'Content-Type: application/json' -d '{"item":"ExcaliburV2", "price": 99.99, "quantity": 99}'
   ```
 #### Correct Response:
 Expected response if item is successfully updated (200 OK):
@@ -181,11 +181,11 @@ If there is an error caused due to the backend, HTTP 500 (Internal Server Error)
 ## [DELETE] `/delete/:item_id`: Delete an item by id.
 #### Curl Template:
   ```
-curl -s -X DELETE http://localhost:5001/api/delete/{PRODUCT ID HERE}
+curl -X DELETE http://localhost:5001/api/delete/{PRODUCT ID HERE}
   ```
 #### Sample Usage:
   ```
-curl -s -X PUT http://localhost:5001/api/delete/2022101261951A
+curl -X PUT http://localhost:5001/api/delete/2022101261951A
   ```
 #### Correct Response:
 Expected response if item is successfully updated (200 OK):
@@ -207,7 +207,7 @@ If there is an error caused due to the backend, HTTP 500 (Internal Server Error)
 ## [GET] `/api/export`: Export the current inventory to CSV.
 #### Sample Usage:
   ```
-curl -s -X GET http://localhost:5001/api/export
+curl -X GET http://localhost:5001/api/export
   ```
 #### Correct Response:
 If item is successfully exported (200 OK):
@@ -226,11 +226,11 @@ If there is an error caused due to the backend, HTTP 500 (Internal Server Error)
 ## [GET] `/api/export/:item_ids`: Export selected list of items (id separated using comma) to CSV.
 #### Curl Template:
   ```
-curl -s -X GET http://localhost:5001/api/export/PRODUCT_ID_1,PRODUCT_ID_2,...
+curl -X GET http://localhost:5001/api/export/PRODUCT_ID_1,PRODUCT_ID_2,...
   ```
 #### Sample Usage:
   ```
-curl -s -X GET http://localhost:5001/api/export/434,4321
+curl -X GET http://localhost:5001/api/export/434,4321
   ```
 #### Correct Response:
 If item is successfully exported (200 OK):
