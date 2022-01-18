@@ -237,7 +237,7 @@ app.get("/api/export", (req, res) => {
 app.get("/api/export/:item_ids", jsonParser, (req, res) => {
   (async () => {
     try {
-      ids = new Set(req.params.item_ids.split(",")); // use set for faster time complexity
+      let ids = new Set(req.params.item_ids.split(",")); // use set for faster time complexity
       let err = "";
       for (let i = 0; i < ids.length; i++) {
         const currentErr = validateId(req.params.item_ids);
@@ -255,17 +255,29 @@ app.get("/api/export/:item_ids", jsonParser, (req, res) => {
       await query.get().then((querySnapshot) => {
         const docs = querySnapshot.docs;
         for (const doc of docs) {
-          if (ids.has(doc.id)){
+          if (ids.has(doc.id)){ // found an id that we are querying
             const selectedItem = {
               id: doc.id,
               item: doc.data().item,
               price: doc.data().price,
               quantity: doc.data().quantity,
             };
+            // remove the queried id from the set
+            // if the set is non-empty after this loop, then some ids are missing.
+            ids.delete(doc.id); 
             response.push(selectedItem);
           }
         }
       });
+
+      if (ids.size != 0){ // some ids are not found
+        err += "The following ids are not found in the database: \n";
+        ids.forEach((element) => {
+          err += element + '\n';
+        })
+        return res.set("Content-Type", "text/plain").status(404).send(err);
+      }
+
       // Check whether the current inventory is empty.
       // If so, return an empty csv.
       let csv = "";

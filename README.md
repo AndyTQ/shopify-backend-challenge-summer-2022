@@ -239,5 +239,12 @@ If item is successfully exported (200 OK):
 "434","ExcaliburV2","99.99","99"
 "4321","Toy","33.33","333"
   ```
+#### Error Response:
+Some items not found (404 Not Found):
+```
+The following ids are not found in the database: 
+PRODUCT_ID_1
+PRODUCT_ID_2
+```
 You can also open a browser and enter `http://localhost:5001/api/export/434,4321`, which will directly download a csv file accordingly.
 If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
