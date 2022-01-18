@@ -112,6 +112,7 @@ Items are successfully read (200 OK):
 ```
 Note that if inventory is empty, an empty array will be returned.
 If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
+
 ----------------------------
 ## [GET] `/read/:item_id`: Read a specific product by id
 #### Curl Template
@@ -141,6 +142,7 @@ Item not found (404 not found):
 Product with id '2022101261951A' does not exist.
 ```
 If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
+
 ----------------------------
 ## [PUT] `/update/:item_id`: Update the metadata of an item by id.
 #### Schema
@@ -174,6 +176,7 @@ Item not found (404 Not Found):
 The id '2022101261951A' does not exist in the database.
 ```
 If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
+
 ----------------------------
 ## [DELETE] `/delete/:item_id`: Delete an item by id.
 #### Curl Template:
@@ -199,6 +202,7 @@ Item not found (404 Not Found):
 The id '2022101261951A' does not exist in the database.
 ```
 If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
+
 ----------------------------
 ## [GET] `/api/export`: Export the current inventory as CSV.
 #### Sample Usage:
@@ -217,6 +221,7 @@ If item is successfully exported (200 OK):
   ```
 Note that if the inventory is empty, a csv will still be returned but it will only have the titles (id, item, price, quantity.)
 If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
+
 ----------------------------
 ## [GET] `/api/export/:item_ids`: Export selected list of items (id separated using comma) as CSV.
 #### Curl Template:
