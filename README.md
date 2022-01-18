@@ -98,17 +98,32 @@ curl -X GET http://localhost:5001/api/read
 #### Correct Response:
 Items are successfully read (200 OK):
 ```
-[{
+[
+    {
     "id": "2022101261951A",
     "item": "Excalibur",
-    "price": 23.40,
+    "price": 23.4,
     "quantity": 66
-}, {
-    "id": "2022101261951A2",
-    "item": "Excalibur V2",
-    "price": 23.40,
+    },
+    {
+    "id": "2022101261951B",
+    "item": "Excalibur",
+    "price": 23.4,
     "quantity": 66
-}]
+    },
+    {
+    "id": "2022101261951C",
+    "item": "Excalibur V3",
+    "price": 23.4,
+    "quantity": 66
+    },
+    {
+    "id": "Shop2333",
+    "item": "Water",
+    "price": 1.52,
+    "quantity": 100
+    }
+]
 ```
 Note that if inventory is empty, an empty array will be returned.
 If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
@@ -185,7 +200,7 @@ curl -X DELETE http://localhost:5001/api/delete/{PRODUCT ID HERE}
   ```
 #### Sample Usage:
   ```
-curl -X PUT http://localhost:5001/api/delete/2022101261951A
+curl -X DELETE http://localhost:5001/api/delete/2022101261951A
   ```
 #### Correct Response:
 Expected response if item is successfully updated (200 OK):
@@ -212,12 +227,10 @@ curl -X GET http://localhost:5001/api/export
 #### Correct Response:
 If item is successfully exported (200 OK):
   ```
-  "id","item","price","quantity"
-"2022101261951A","ExcaliburV2",99.99,99
-"1235124","Toy",33.33,333
-"1235125","Oculus controller",43,43
-"4323431","HTC controller",23.40,33
-"434253555","PS5 controller",66.59,44
+"id","item","price","quantity"
+"2022101261951B","Excalibur",23.4,66
+"2022101261951C","Excalibur V3",23.4,66
+"Shop2333","Water",1.52,100
   ```
 Note that if the inventory is empty, a csv will still be returned but it will only have the titles (id, item, price, quantity.)
 If there is an error caused due to the backend, HTTP 500 (Internal Server Error) will be returned.
@@ -230,14 +243,14 @@ curl -X GET http://localhost:5001/api/export/PRODUCT_ID_1,PRODUCT_ID_2,...
   ```
 #### Sample Usage:
   ```
-curl -X GET http://localhost:5001/api/export/434,4321
+curl -X GET http://localhost:5001/api/export/Shop2333,2022101261951B
   ```
 #### Correct Response:
 If item is successfully exported (200 OK):
   ```
-  "id","item","price","quantity"
-"434","ExcaliburV2",99.99,99
-"4321","Toy",33.33,333
+"id","item","price","quantity"
+"2022101261951B","Excalibur",23.4,66
+"Shop2333","Water",1.52,100
   ```
 #### Error Response:
 Invalid id(s) (400 Bad Request):
